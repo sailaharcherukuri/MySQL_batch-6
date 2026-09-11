@@ -1,0 +1,1004 @@
+mysql> USE DA6;
+Database changed
+mysql> SHOW TABLES;
++---------------+
+| Tables_in_da6 |
++---------------+
+| employees     |
+| products      |
+| students      |
+| studentscores |
++---------------+
+4 rows in set (0.00 sec)
+
+mysql> DESC EMPLOYEES;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| id         | int          | YES  |     | NULL    |       |
+| name       | varchar(100) | YES  |     | NULL    |       |
+| department | varchar(100) | YES  |     | NULL    |       |
+| salary     | int          | YES  |     | NULL    |       |
+| isactive   | tinyint(1)   | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> CREATE TABLE Employees (
+    ->  id INT,
+    ->  name VARCHAR(100),
+    ->  department VARCHAR(100),
+    ->  salary INT,
+    ->  isactive BOOLEAN
+    ->  );
+ERROR 1050 (42S01): Table 'employees' already exists
+mysql>
+mysql>  -- STEP 2: Insert Records
+mysql> INSERT INTO Employees VALUES
+    ->  (1, 'Rahul Sharma', 'IT', 50000, TRUE),
+    ->  (2, 'Priya Reddy', 'HR', 30000, TRUE),
+    ->  (3, 'Amit Kumar', 'Finance', 45000, FALSE),
+    ->  (4, 'Sneha Patel', 'IT', 35000, TRUE),
+    ->  (5, 'Vikram Singh', 'Finance', 28000, TRUE),
+    ->  (6, 'Anjali Mehta', 'HR', 32000, FALSE),
+    ->  (7, 'Kiran Rao', 'IT', 60000, TRUE),
+    ->  (8, 'Pooja Verma', 'Marketing', 27000, TRUE),
+    ->  (9, 'Ramesh Naidu', 'Sales', 38000, TRUE),
+    ->  (10, 'Deepika Joshi', 'Finance', 52000, TRUE),
+    ->  (11, 'Suresh Babu', 'Marketing', 29000, FALSE),
+    ->  (12, 'Neha Kapoor', 'HR', 41000, TRUE),
+    ->  (13, 'Arjun Reddy', 'IT', 55000, FALSE),
+    ->  (14, 'Lakshmi Devi', 'Sales', 33000, TRUE),
+    ->  (15, 'Nikhil Jain', 'IT', 47000, TRUE);
+Query OK, 15 rows affected (0.02 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql> SELECT* FROM EMPLOYEES;
++------+---------------+------------+--------+----------+
+| id   | name          | department | salary | isactive |
++------+---------------+------------+--------+----------+
+|    1 | Rahul Sharma  | IT         |  50000 |        1 |
+|    2 | Priya Reddy   | HR         |  30000 |        1 |
+|    3 | Amit Kumar    | Finance    |  45000 |        0 |
+|    4 | Sneha Patel   | IT         |  35000 |        1 |
+|    5 | Vikram Singh  | Finance    |  28000 |        1 |
+|    6 | Anjali Mehta  | HR         |  32000 |        0 |
+|    7 | Kiran Rao     | IT         |  60000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  27000 |        1 |
+|    9 | Ramesh Naidu  | Sales      |  38000 |        1 |
+|   10 | Deepika Joshi | Finance    |  52000 |        1 |
+|   11 | Suresh Babu   | Marketing  |  29000 |        0 |
+|   12 | Neha Kapoor   | HR         |  41000 |        1 |
+|   13 | Arjun Reddy   | IT         |  55000 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  33000 |        1 |
+|   15 | Nikhil Jain   | IT         |  47000 |        1 |
+|    1 | Rahul Sharma  | IT         |  50000 |        1 |
+|    2 | Priya Reddy   | HR         |  30000 |        1 |
+|    3 | Amit Kumar    | Finance    |  45000 |        0 |
+|    4 | Sneha Patel   | IT         |  35000 |        1 |
+|    5 | Vikram Singh  | Finance    |  28000 |        1 |
+|    6 | Anjali Mehta  | HR         |  32000 |        0 |
+|    7 | Kiran Rao     | IT         |  60000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  27000 |        1 |
+|    9 | Ramesh Naidu  | Sales      |  38000 |        1 |
+|   10 | Deepika Joshi | Finance    |  52000 |        1 |
+|   11 | Suresh Babu   | Marketing  |  29000 |        0 |
+|   12 | Neha Kapoor   | HR         |  41000 |        1 |
+|   13 | Arjun Reddy   | IT         |  55000 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  33000 |        1 |
+|   15 | Nikhil Jain   | IT         |  47000 |        1 |
++------+---------------+------------+--------+----------+
+30 rows in set (0.04 sec)
+
+mysql> UPDATE EMPLOYEES SET SALARY=SALARY+2000 WHERE DEPARTMENT='IT' AND ISACTIVE=1;
+Query OK, 8 rows affected (0.01 sec)
+Rows matched: 8  Changed: 8  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES;
++------+---------------+------------+--------+----------+
+| id   | name          | department | salary | isactive |
++------+---------------+------------+--------+----------+
+|    1 | Rahul Sharma  | IT         |  52000 |        1 |
+|    2 | Priya Reddy   | HR         |  30000 |        1 |
+|    3 | Amit Kumar    | Finance    |  45000 |        0 |
+|    4 | Sneha Patel   | IT         |  37000 |        1 |
+|    5 | Vikram Singh  | Finance    |  28000 |        1 |
+|    6 | Anjali Mehta  | HR         |  32000 |        0 |
+|    7 | Kiran Rao     | IT         |  62000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  27000 |        1 |
+|    9 | Ramesh Naidu  | Sales      |  38000 |        1 |
+|   10 | Deepika Joshi | Finance    |  52000 |        1 |
+|   11 | Suresh Babu   | Marketing  |  29000 |        0 |
+|   12 | Neha Kapoor   | HR         |  41000 |        1 |
+|   13 | Arjun Reddy   | IT         |  55000 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  33000 |        1 |
+|   15 | Nikhil Jain   | IT         |  49000 |        1 |
+|    1 | Rahul Sharma  | IT         |  52000 |        1 |
+|    2 | Priya Reddy   | HR         |  30000 |        1 |
+|    3 | Amit Kumar    | Finance    |  45000 |        0 |
+|    4 | Sneha Patel   | IT         |  37000 |        1 |
+|    5 | Vikram Singh  | Finance    |  28000 |        1 |
+|    6 | Anjali Mehta  | HR         |  32000 |        0 |
+|    7 | Kiran Rao     | IT         |  62000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  27000 |        1 |
+|    9 | Ramesh Naidu  | Sales      |  38000 |        1 |
+|   10 | Deepika Joshi | Finance    |  52000 |        1 |
+|   11 | Suresh Babu   | Marketing  |  29000 |        0 |
+|   12 | Neha Kapoor   | HR         |  41000 |        1 |
+|   13 | Arjun Reddy   | IT         |  55000 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  33000 |        1 |
+|   15 | Nikhil Jain   | IT         |  49000 |        1 |
++------+---------------+------------+--------+----------+
+30 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET SALARY=SALARY-(SALARY*0.10) WHERE DEPARTMENT='FINANCE' OR ISACTIVE=0;
+Query OK, 12 rows affected (0.06 sec)
+Rows matched: 12  Changed: 12  Warnings: 0
+
+mysql> DESC EMPLOYEES;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| id         | int          | YES  |     | NULL    |       |
+| name       | varchar(100) | YES  |     | NULL    |       |
+| department | varchar(100) | YES  |     | NULL    |       |
+| salary     | int          | YES  |     | NULL    |       |
+| isactive   | tinyint(1)   | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT* FROM PRODUCTS;
+Empty set (0.04 sec)
+
+mysql> SELECT* FROM EMPLOYEES;
++------+---------------+------------+--------+----------+
+| id   | name          | department | salary | isactive |
++------+---------------+------------+--------+----------+
+|    1 | Rahul Sharma  | IT         |  52000 |        1 |
+|    2 | Priya Reddy   | HR         |  30000 |        1 |
+|    3 | Amit Kumar    | Finance    |  40500 |        0 |
+|    4 | Sneha Patel   | IT         |  37000 |        1 |
+|    5 | Vikram Singh  | Finance    |  25200 |        1 |
+|    6 | Anjali Mehta  | HR         |  28800 |        0 |
+|    7 | Kiran Rao     | IT         |  62000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  27000 |        1 |
+|    9 | Ramesh Naidu  | Sales      |  38000 |        1 |
+|   10 | Deepika Joshi | Finance    |  46800 |        1 |
+|   11 | Suresh Babu   | Marketing  |  26100 |        0 |
+|   12 | Neha Kapoor   | HR         |  41000 |        1 |
+|   13 | Arjun Reddy   | IT         |  49500 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  33000 |        1 |
+|   15 | Nikhil Jain   | IT         |  49000 |        1 |
+|    1 | Rahul Sharma  | IT         |  52000 |        1 |
+|    2 | Priya Reddy   | HR         |  30000 |        1 |
+|    3 | Amit Kumar    | Finance    |  40500 |        0 |
+|    4 | Sneha Patel   | IT         |  37000 |        1 |
+|    5 | Vikram Singh  | Finance    |  25200 |        1 |
+|    6 | Anjali Mehta  | HR         |  28800 |        0 |
+|    7 | Kiran Rao     | IT         |  62000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  27000 |        1 |
+|    9 | Ramesh Naidu  | Sales      |  38000 |        1 |
+|   10 | Deepika Joshi | Finance    |  46800 |        1 |
+|   11 | Suresh Babu   | Marketing  |  26100 |        0 |
+|   12 | Neha Kapoor   | HR         |  41000 |        1 |
+|   13 | Arjun Reddy   | IT         |  49500 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  33000 |        1 |
+|   15 | Nikhil Jain   | IT         |  49000 |        1 |
++------+---------------+------------+--------+----------+
+30 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET SALARY=SALARY-(SALARY*0.10) WHERE DEPARTMENT='FINANCE' OR ISACTIVE=1 AND SALARY<60000;
+Query OK, 22 rows affected (0.04 sec)
+Rows matched: 22  Changed: 22  Warnings: 0
+
+mysql> SELECT* FROM PRODUCTS;
+Empty set (0.00 sec)
+
+mysql> SELECT* FROM EMPLOYEES;
++------+---------------+------------+--------+----------+
+| id   | name          | department | salary | isactive |
++------+---------------+------------+--------+----------+
+|    1 | Rahul Sharma  | IT         |  46800 |        1 |
+|    2 | Priya Reddy   | HR         |  27000 |        1 |
+|    3 | Amit Kumar    | Finance    |  36450 |        0 |
+|    4 | Sneha Patel   | IT         |  33300 |        1 |
+|    5 | Vikram Singh  | Finance    |  22680 |        1 |
+|    6 | Anjali Mehta  | HR         |  28800 |        0 |
+|    7 | Kiran Rao     | IT         |  62000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  24300 |        1 |
+|    9 | Ramesh Naidu  | Sales      |  34200 |        1 |
+|   10 | Deepika Joshi | Finance    |  42120 |        1 |
+|   11 | Suresh Babu   | Marketing  |  26100 |        0 |
+|   12 | Neha Kapoor   | HR         |  36900 |        1 |
+|   13 | Arjun Reddy   | IT         |  49500 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  29700 |        1 |
+|   15 | Nikhil Jain   | IT         |  44100 |        1 |
+|    1 | Rahul Sharma  | IT         |  46800 |        1 |
+|    2 | Priya Reddy   | HR         |  27000 |        1 |
+|    3 | Amit Kumar    | Finance    |  36450 |        0 |
+|    4 | Sneha Patel   | IT         |  33300 |        1 |
+|    5 | Vikram Singh  | Finance    |  22680 |        1 |
+|    6 | Anjali Mehta  | HR         |  28800 |        0 |
+|    7 | Kiran Rao     | IT         |  62000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  24300 |        1 |
+|    9 | Ramesh Naidu  | Sales      |  34200 |        1 |
+|   10 | Deepika Joshi | Finance    |  42120 |        1 |
+|   11 | Suresh Babu   | Marketing  |  26100 |        0 |
+|   12 | Neha Kapoor   | HR         |  36900 |        1 |
+|   13 | Arjun Reddy   | IT         |  49500 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  29700 |        1 |
+|   15 | Nikhil Jain   | IT         |  44100 |        1 |
++------+---------------+------------+--------+----------+
+30 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET ISACTIVE=FALSE WHERE NOT DEPARTMENT='IT';
+Query OK, 14 rows affected (0.04 sec)
+Rows matched: 20  Changed: 14  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES;
++------+---------------+------------+--------+----------+
+| id   | name          | department | salary | isactive |
++------+---------------+------------+--------+----------+
+|    1 | Rahul Sharma  | IT         |  46800 |        1 |
+|    2 | Priya Reddy   | HR         |  27000 |        0 |
+|    3 | Amit Kumar    | Finance    |  36450 |        0 |
+|    4 | Sneha Patel   | IT         |  33300 |        1 |
+|    5 | Vikram Singh  | Finance    |  22680 |        0 |
+|    6 | Anjali Mehta  | HR         |  28800 |        0 |
+|    7 | Kiran Rao     | IT         |  62000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  24300 |        0 |
+|    9 | Ramesh Naidu  | Sales      |  34200 |        0 |
+|   10 | Deepika Joshi | Finance    |  42120 |        0 |
+|   11 | Suresh Babu   | Marketing  |  26100 |        0 |
+|   12 | Neha Kapoor   | HR         |  36900 |        0 |
+|   13 | Arjun Reddy   | IT         |  49500 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  29700 |        0 |
+|   15 | Nikhil Jain   | IT         |  44100 |        1 |
+|    1 | Rahul Sharma  | IT         |  46800 |        1 |
+|    2 | Priya Reddy   | HR         |  27000 |        0 |
+|    3 | Amit Kumar    | Finance    |  36450 |        0 |
+|    4 | Sneha Patel   | IT         |  33300 |        1 |
+|    5 | Vikram Singh  | Finance    |  22680 |        0 |
+|    6 | Anjali Mehta  | HR         |  28800 |        0 |
+|    7 | Kiran Rao     | IT         |  62000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  24300 |        0 |
+|    9 | Ramesh Naidu  | Sales      |  34200 |        0 |
+|   10 | Deepika Joshi | Finance    |  42120 |        0 |
+|   11 | Suresh Babu   | Marketing  |  26100 |        0 |
+|   12 | Neha Kapoor   | HR         |  36900 |        0 |
+|   13 | Arjun Reddy   | IT         |  49500 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  29700 |        0 |
+|   15 | Nikhil Jain   | IT         |  44100 |        1 |
++------+---------------+------------+--------+----------+
+30 rows in set (0.00 sec)
+
+mysql> DELETE FROM EMPLOYEES WHERE DEPARTMENT='HR' AND ISACTIVE='0';
+Query OK, 6 rows affected (0.04 sec)
+
+mysql> SELECT* FROM EMPLOYEES;
++------+---------------+------------+--------+----------+
+| id   | name          | department | salary | isactive |
++------+---------------+------------+--------+----------+
+|    1 | Rahul Sharma  | IT         |  46800 |        1 |
+|    3 | Amit Kumar    | Finance    |  36450 |        0 |
+|    4 | Sneha Patel   | IT         |  33300 |        1 |
+|    5 | Vikram Singh  | Finance    |  22680 |        0 |
+|    7 | Kiran Rao     | IT         |  62000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  24300 |        0 |
+|    9 | Ramesh Naidu  | Sales      |  34200 |        0 |
+|   10 | Deepika Joshi | Finance    |  42120 |        0 |
+|   11 | Suresh Babu   | Marketing  |  26100 |        0 |
+|   13 | Arjun Reddy   | IT         |  49500 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  29700 |        0 |
+|   15 | Nikhil Jain   | IT         |  44100 |        1 |
+|    1 | Rahul Sharma  | IT         |  46800 |        1 |
+|    3 | Amit Kumar    | Finance    |  36450 |        0 |
+|    4 | Sneha Patel   | IT         |  33300 |        1 |
+|    5 | Vikram Singh  | Finance    |  22680 |        0 |
+|    7 | Kiran Rao     | IT         |  62000 |        1 |
+|    8 | Pooja Verma   | Marketing  |  24300 |        0 |
+|    9 | Ramesh Naidu  | Sales      |  34200 |        0 |
+|   10 | Deepika Joshi | Finance    |  42120 |        0 |
+|   11 | Suresh Babu   | Marketing  |  26100 |        0 |
+|   13 | Arjun Reddy   | IT         |  49500 |        0 |
+|   14 | Lakshmi Devi  | Sales      |  29700 |        0 |
+|   15 | Nikhil Jain   | IT         |  44100 |        1 |
++------+---------------+------------+--------+----------+
+24 rows in set (0.00 sec)
+
+mysql> DELETE FROM EMPLOYEES WHERE DEPARTMENT='FINANCE' WHERE SALARY<35000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE SALARY<35000' at line 1
+mysql> DELETE FROM EMPLOYEES WHERE DEPARTMENT='FINANCE' OR SALARY<35000;
+Query OK, 16 rows affected (0.04 sec)
+
+mysql> SELECT* FROM EMPLOYEES;
++------+--------------+------------+--------+----------+
+| id   | name         | department | salary | isactive |
++------+--------------+------------+--------+----------+
+|    1 | Rahul Sharma | IT         |  46800 |        1 |
+|    7 | Kiran Rao    | IT         |  62000 |        1 |
+|   13 | Arjun Reddy  | IT         |  49500 |        0 |
+|   15 | Nikhil Jain  | IT         |  44100 |        1 |
+|    1 | Rahul Sharma | IT         |  46800 |        1 |
+|    7 | Kiran Rao    | IT         |  62000 |        1 |
+|   13 | Arjun Reddy  | IT         |  49500 |        0 |
+|   15 | Nikhil Jain  | IT         |  44100 |        1 |
++------+--------------+------------+--------+----------+
+8 rows in set (0.00 sec)
+
+mysql> DELETE FROM EMPLOYEES WHERE NOT DEPARTMENT='IT';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT* FROM EMPLOYEES;
++------+--------------+------------+--------+----------+
+| id   | name         | department | salary | isactive |
++------+--------------+------------+--------+----------+
+|    1 | Rahul Sharma | IT         |  46800 |        1 |
+|    7 | Kiran Rao    | IT         |  62000 |        1 |
+|   13 | Arjun Reddy  | IT         |  49500 |        0 |
+|   15 | Nikhil Jain  | IT         |  44100 |        1 |
+|    1 | Rahul Sharma | IT         |  46800 |        1 |
+|    7 | Kiran Rao    | IT         |  62000 |        1 |
+|   13 | Arjun Reddy  | IT         |  49500 |        0 |
+|   15 | Nikhil Jain  | IT         |  44100 |        1 |
++------+--------------+------------+--------+----------+
+8 rows in set (0.00 sec)
+
+mysql> CREATE TABLE Projects (
+    ->    id INT,
+    ->    name VARCHAR(100),
+    ->    assignedto VARCHAR(100),
+    ->    start DATE,
+    ->    end DATE
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql>
+mysql> INSERT INTO Projects VALUES
+    -> (1, 'Website Revamp', 'Alice', '2024-01-15', '2024-03-01'),
+    -> (2, 'Mobile App', 'Bob', '2024-02-01', NULL),
+    -> (3, 'Data Migration', NULL, NULL, NULL),
+    -> (4, 'SEO Optimization', 'Eve', '2024-03-10', '2024-04-20'),
+    -> (5, 'Cloud Migration', NULL, '2024-03-15', NULL);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> USE DA6;
+Database changed
+mysql> SELECT*FROM PROJECTS;
++------+------------------+------------+------------+------------+
+| id   | name             | assignedto | start      | end        |
++------+------------------+------------+------------+------------+
+|    1 | Website Revamp   | Alice      | 2024-01-15 | 2024-03-01 |
+|    2 | Mobile App       | Bob        | 2024-02-01 | NULL       |
+|    3 | Data Migration   | NULL       | NULL       | NULL       |
+|    4 | SEO Optimization | Eve        | 2024-03-10 | 2024-04-20 |
+|    5 | Cloud Migration  | NULL       | 2024-03-15 | NULL       |
++------+------------------+------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT* FROM PROJECTS WHERE ASSIGNED TO IS NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TO IS NULL' at line 1
+mysql> SELECT* FROM PROJECTS WHERE ASSIGNED IS NULL;
+ERROR 1054 (42S22): Unknown column 'ASSIGNED' in 'where clause'
+mysql> SELECT* FROM PROJECTS WHERE ASSIGNEDTO IS NULL;
++------+-----------------+------------+------------+------+
+| id   | name            | assignedto | start      | end  |
++------+-----------------+------------+------------+------+
+|    3 | Data Migration  | NULL       | NULL       | NULL |
+|    5 | Cloud Migration | NULL       | 2024-03-15 | NULL |
++------+-----------------+------------+------------+------+
+2 rows in set (0.04 sec)
+
+mysql> SELECT* FROM PROJECTS WHERE START IS NULL;
++------+----------------+------------+-------+------+
+| id   | name           | assignedto | start | end  |
++------+----------------+------------+-------+------+
+|    3 | Data Migration | NULL       | NULL  | NULL |
++------+----------------+------------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT* FROM PROJECTS WHERE END IS NOT NULL;
++------+------------------+------------+------------+------------+
+| id   | name             | assignedto | start      | end        |
++------+------------------+------------+------------+------------+
+|    1 | Website Revamp   | Alice      | 2024-01-15 | 2024-03-01 |
+|    4 | SEO Optimization | Eve        | 2024-03-10 | 2024-04-20 |
++------+------------------+------------+------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT* FROM PROJECTS WHERE ASSIGNEDTO IS NOT NULL;
++------+------------------+------------+------------+------------+
+| id   | name             | assignedto | start      | end        |
++------+------------------+------------+------------+------------+
+|    1 | Website Revamp   | Alice      | 2024-01-15 | 2024-03-01 |
+|    2 | Mobile App       | Bob        | 2024-02-01 | NULL       |
+|    4 | SEO Optimization | Eve        | 2024-03-10 | 2024-04-20 |
++------+------------------+------------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> UPDATE PROJECTS SET ASSIGNEDTO='FRANK' WHERE ASSIGNEDTO IS NULL;
+Query OK, 2 rows affected (0.04 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT* FROM PROJECTS;
++------+------------------+------------+------------+------------+
+| id   | name             | assignedto | start      | end        |
++------+------------------+------------+------------+------------+
+|    1 | Website Revamp   | Alice      | 2024-01-15 | 2024-03-01 |
+|    2 | Mobile App       | Bob        | 2024-02-01 | NULL       |
+|    3 | Data Migration   | FRANK      | NULL       | NULL       |
+|    4 | SEO Optimization | Eve        | 2024-03-10 | 2024-04-20 |
+|    5 | Cloud Migration  | FRANK      | 2024-03-15 | NULL       |
++------+------------------+------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE PROJECTS SET START='2026-09-10' WHERE START IS NULL;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT* FROM PROJECTS;
++------+------------------+------------+------------+------------+
+| id   | name             | assignedto | start      | end        |
++------+------------------+------------+------------+------------+
+|    1 | Website Revamp   | Alice      | 2024-01-15 | 2024-03-01 |
+|    2 | Mobile App       | Bob        | 2024-02-01 | NULL       |
+|    3 | Data Migration   | FRANK      | 2026-09-10 | NULL       |
+|    4 | SEO Optimization | Eve        | 2024-03-10 | 2024-04-20 |
+|    5 | Cloud Migration  | FRANK      | 2024-03-15 | NULL       |
++------+------------------+------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE PROJECTS SET NAME='COMPLETED' WHERE END IS NOT NULL;
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT* FROM PROJECTS;
++------+-----------------+------------+------------+------------+
+| id   | name            | assignedto | start      | end        |
++------+-----------------+------------+------------+------------+
+|    1 | COMPLETED       | Alice      | 2024-01-15 | 2024-03-01 |
+|    2 | Mobile App      | Bob        | 2024-02-01 | NULL       |
+|    3 | Data Migration  | FRANK      | 2026-09-10 | NULL       |
+|    4 | COMPLETED       | Eve        | 2024-03-10 | 2024-04-20 |
+|    5 | Cloud Migration | FRANK      | 2024-03-15 | NULL       |
++------+-----------------+------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE FROM PROJECTS WHERE ASSIGNETO ='NULL
+    '> DELETE FROM PROJECTS WHERE ASSIGNETO ='NULL';
+    '>
+    '> ^C
+mysql> DELETE FROM PROJECTS WHERE ASSIGNEDTO IS'NULL';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''NULL'' at line 1
+mysql> DELETE FROM PROJECTS WHERE ASSIGNEDTO IS NULL;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT* FROM PROJECTS;
++------+-----------------+------------+------------+------------+
+| id   | name            | assignedto | start      | end        |
++------+-----------------+------------+------------+------------+
+|    1 | COMPLETED       | Alice      | 2024-01-15 | 2024-03-01 |
+|    2 | Mobile App      | Bob        | 2024-02-01 | NULL       |
+|    3 | Data Migration  | FRANK      | 2026-09-10 | NULL       |
+|    4 | COMPLETED       | Eve        | 2024-03-10 | 2024-04-20 |
+|    5 | Cloud Migration | FRANK      | 2024-03-15 | NULL       |
++------+-----------------+------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE FROM PROJECTS WHERE START IS NULL;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT* FROM PROJECTS;
++------+-----------------+------------+------------+------------+
+| id   | name            | assignedto | start      | end        |
++------+-----------------+------------+------------+------------+
+|    1 | COMPLETED       | Alice      | 2024-01-15 | 2024-03-01 |
+|    2 | Mobile App      | Bob        | 2024-02-01 | NULL       |
+|    3 | Data Migration  | FRANK      | 2026-09-10 | NULL       |
+|    4 | COMPLETED       | Eve        | 2024-03-10 | 2024-04-20 |
+|    5 | Cloud Migration | FRANK      | 2024-03-15 | NULL       |
++------+-----------------+------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE FROM PROJECTS WHERE END IS NOT NULL;
+Query OK, 2 rows affected (0.04 sec)
+
+mysql> SELECT* FROM PROJECTS;
++------+-----------------+------------+------------+------+
+| id   | name            | assignedto | start      | end  |
++------+-----------------+------------+------------+------+
+|    2 | Mobile App      | Bob        | 2024-02-01 | NULL |
+|    3 | Data Migration  | FRANK      | 2026-09-10 | NULL |
+|    5 | Cloud Migration | FRANK      | 2024-03-15 | NULL |
++------+-----------------+------------+------------+------+
+3 rows in set (0.04 sec)
+
+mysql> CREATE TABLE Orders (
+    ->  id INT,
+    ->  customer_name VARCHAR(100),
+    ->  order_date DATE,
+    ->  total_amount DECIMAL(10,2)
+    ->  );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql>
+mysql> -- STEP 2: Insert Records
+mysql> INSERT INTO Orders VALUES
+    ->  (1, 'Alice', '2024-03-01', 1500.00),
+    ->  (2, 'Bob', '2024-03-05', 450.00),
+    ->  (3, 'Charlie', '2024-03-10', 2500.00),
+    ->  (4, 'Diana', '2024-03-15', 800.00),
+    ->  (5, 'Eve', '2024-03-20', 1200.00),
+    ->  (6, 'Frank', '2024-03-25', 3000.00),
+    ->  (7, 'Grace', '2024-04-02', 1800.00),
+    ->  (8, 'Henry', '2024-04-08', 950.00),
+    ->  (9, 'Ivy', '2024-04-12', 2750.00),
+    ->  (10, 'Jack', '2024-04-18', 650.00),
+    ->  (11, 'Kevin', '2024-04-22', 4200.00),
+    ->  (12, 'Lily', '2024-05-01', 1350.00),
+    ->  (13, 'Michael', '2024-05-08', 5000.00),
+    ->  (14, 'Nancy', '2024-05-15', 2250.00),
+    ->  (15, 'Oliver', '2024-05-25', 900.00);
+Query OK, 15 rows affected (0.03 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql> SELECT* FROM ORDERS;
++------+---------------+------------+--------------+
+| id   | customer_name | order_date | total_amount |
++------+---------------+------------+--------------+
+|    1 | Alice         | 2024-03-01 |      1500.00 |
+|    2 | Bob           | 2024-03-05 |       450.00 |
+|    3 | Charlie       | 2024-03-10 |      2500.00 |
+|    4 | Diana         | 2024-03-15 |       800.00 |
+|    5 | Eve           | 2024-03-20 |      1200.00 |
+|    6 | Frank         | 2024-03-25 |      3000.00 |
+|    7 | Grace         | 2024-04-02 |      1800.00 |
+|    8 | Henry         | 2024-04-08 |       950.00 |
+|    9 | Ivy           | 2024-04-12 |      2750.00 |
+|   10 | Jack          | 2024-04-18 |       650.00 |
+|   11 | Kevin         | 2024-04-22 |      4200.00 |
+|   12 | Lily          | 2024-05-01 |      1350.00 |
+|   13 | Michael       | 2024-05-08 |      5000.00 |
+|   14 | Nancy         | 2024-05-15 |      2250.00 |
+|   15 | Oliver        | 2024-05-25 |       900.00 |
++------+---------------+------------+--------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT* FROM ORDERS WHERE ORDER_DATE BETWEEN '2024-03-03' AND '2024-03-10';
++------+---------------+------------+--------------+
+| id   | customer_name | order_date | total_amount |
++------+---------------+------------+--------------+
+|    2 | Bob           | 2024-03-05 |       450.00 |
+|    3 | Charlie       | 2024-03-10 |      2500.00 |
++------+---------------+------------+--------------+
+2 rows in set (0.04 sec)
+
+mysql> SELECT* FROM ORDERS WHERE ORDER-DATE BETWEEN '2024-04-01' AND '2024-04-30';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER-DATE BETWEEN '2024-04-01' AND '2024-04-30'' at line 1
+mysql> SELECT* FROM ORDERS WHERE ORDER_DATE BETWEEN '2024-04-01' AND '2024-04-30';
++------+---------------+------------+--------------+
+| id   | customer_name | order_date | total_amount |
++------+---------------+------------+--------------+
+|    7 | Grace         | 2024-04-02 |      1800.00 |
+|    8 | Henry         | 2024-04-08 |       950.00 |
+|    9 | Ivy           | 2024-04-12 |      2750.00 |
+|   10 | Jack          | 2024-04-18 |       650.00 |
+|   11 | Kevin         | 2024-04-22 |      4200.00 |
++------+---------------+------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT* FROM ORDERS WHERE TOTAL_AMOUNT BETWEEN '500' AND '1500';
++------+---------------+------------+--------------+
+| id   | customer_name | order_date | total_amount |
++------+---------------+------------+--------------+
+|    1 | Alice         | 2024-03-01 |      1500.00 |
+|    4 | Diana         | 2024-03-15 |       800.00 |
+|    5 | Eve           | 2024-03-20 |      1200.00 |
+|    8 | Henry         | 2024-04-08 |       950.00 |
+|   10 | Jack          | 2024-04-18 |       650.00 |
+|   12 | Lily          | 2024-05-01 |      1350.00 |
+|   15 | Oliver        | 2024-05-25 |       900.00 |
++------+---------------+------------+--------------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE ORDERS SET TOTAL_AMOUNT= TOTAL_AMOUNT+1000 WHERE ORDER_DATE BETWEEN '2024-03-04' AND '2024-03-10';
+Query OK, 2 rows affected (0.02 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT* FROM ORDERS;
++------+---------------+------------+--------------+
+| id   | customer_name | order_date | total_amount |
++------+---------------+------------+--------------+
+|    1 | Alice         | 2024-03-01 |      1500.00 |
+|    2 | Bob           | 2024-03-05 |      1450.00 |
+|    3 | Charlie       | 2024-03-10 |      3500.00 |
+|    4 | Diana         | 2024-03-15 |       800.00 |
+|    5 | Eve           | 2024-03-20 |      1200.00 |
+|    6 | Frank         | 2024-03-25 |      3000.00 |
+|    7 | Grace         | 2024-04-02 |      1800.00 |
+|    8 | Henry         | 2024-04-08 |       950.00 |
+|    9 | Ivy           | 2024-04-12 |      2750.00 |
+|   10 | Jack          | 2024-04-18 |       650.00 |
+|   11 | Kevin         | 2024-04-22 |      4200.00 |
+|   12 | Lily          | 2024-05-01 |      1350.00 |
+|   13 | Michael       | 2024-05-08 |      5000.00 |
+|   14 | Nancy         | 2024-05-15 |      2250.00 |
+|   15 | Oliver        | 2024-05-25 |       900.00 |
++------+---------------+------------+--------------+
+15 rows in set (0.00 sec)
+
+mysql> UPDATE ORDERS SET TOTAL_AMOUNT=TOTAL_AMOUNT-200 WHERE TOTAL_AMOUNT BETWEEN '1000' AND '2000';
+Query OK, 5 rows affected (0.06 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> SELECT* FROM ORDERS;
++------+---------------+------------+--------------+
+| id   | customer_name | order_date | total_amount |
++------+---------------+------------+--------------+
+|    1 | Alice         | 2024-03-01 |      1300.00 |
+|    2 | Bob           | 2024-03-05 |      1250.00 |
+|    3 | Charlie       | 2024-03-10 |      3500.00 |
+|    4 | Diana         | 2024-03-15 |       800.00 |
+|    5 | Eve           | 2024-03-20 |      1000.00 |
+|    6 | Frank         | 2024-03-25 |      3000.00 |
+|    7 | Grace         | 2024-04-02 |      1600.00 |
+|    8 | Henry         | 2024-04-08 |       950.00 |
+|    9 | Ivy           | 2024-04-12 |      2750.00 |
+|   10 | Jack          | 2024-04-18 |       650.00 |
+|   11 | Kevin         | 2024-04-22 |      4200.00 |
+|   12 | Lily          | 2024-05-01 |      1150.00 |
+|   13 | Michael       | 2024-05-08 |      5000.00 |
+|   14 | Nancy         | 2024-05-15 |      2250.00 |
+|   15 | Oliver        | 2024-05-25 |       900.00 |
++------+---------------+------------+--------------+
+15 rows in set (0.00 sec)
+
+mysql> UPDATE ORDERS SET TOTAL_AMOUNT=TOTAL_AMOUNT+(TOTAL_AMOUNT*0.10) WHERE TOTAL_AMOUNT BETWEEN '2500' AND '5000';
+Query OK, 5 rows affected (0.04 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> SELECT* FROM ORDERS;
++------+---------------+------------+--------------+
+| id   | customer_name | order_date | total_amount |
++------+---------------+------------+--------------+
+|    1 | Alice         | 2024-03-01 |      1300.00 |
+|    2 | Bob           | 2024-03-05 |      1250.00 |
+|    3 | Charlie       | 2024-03-10 |      3850.00 |
+|    4 | Diana         | 2024-03-15 |       800.00 |
+|    5 | Eve           | 2024-03-20 |      1000.00 |
+|    6 | Frank         | 2024-03-25 |      3300.00 |
+|    7 | Grace         | 2024-04-02 |      1600.00 |
+|    8 | Henry         | 2024-04-08 |       950.00 |
+|    9 | Ivy           | 2024-04-12 |      3025.00 |
+|   10 | Jack          | 2024-04-18 |       650.00 |
+|   11 | Kevin         | 2024-04-22 |      4620.00 |
+|   12 | Lily          | 2024-05-01 |      1150.00 |
+|   13 | Michael       | 2024-05-08 |      5500.00 |
+|   14 | Nancy         | 2024-05-15 |      2250.00 |
+|   15 | Oliver        | 2024-05-25 |       900.00 |
++------+---------------+------------+--------------+
+15 rows in set (0.00 sec)
+
+mysql> DELETE FROM ORDERS WHERE ORDER_DATE BETWEEN '2024-03-10' AND '2024-03-20';
+Query OK, 3 rows affected (0.04 sec)
+
+mysql> SELECT* FROM ORDERS;
++------+---------------+------------+--------------+
+| id   | customer_name | order_date | total_amount |
++------+---------------+------------+--------------+
+|    1 | Alice         | 2024-03-01 |      1300.00 |
+|    2 | Bob           | 2024-03-05 |      1250.00 |
+|    6 | Frank         | 2024-03-25 |      3300.00 |
+|    7 | Grace         | 2024-04-02 |      1600.00 |
+|    8 | Henry         | 2024-04-08 |       950.00 |
+|    9 | Ivy           | 2024-04-12 |      3025.00 |
+|   10 | Jack          | 2024-04-18 |       650.00 |
+|   11 | Kevin         | 2024-04-22 |      4620.00 |
+|   12 | Lily          | 2024-05-01 |      1150.00 |
+|   13 | Michael       | 2024-05-08 |      5500.00 |
+|   14 | Nancy         | 2024-05-15 |      2250.00 |
+|   15 | Oliver        | 2024-05-25 |       900.00 |
++------+---------------+------------+--------------+
+12 rows in set (0.00 sec)
+
+mysql> DELETE FROM ORDERS WHERE TOTAL_AMOUNT BETWEEN '2500' AND '5000';
+Query OK, 3 rows affected (0.00 sec)
+
+mysql> SELECT* FROM ORDERS;
++------+---------------+------------+--------------+
+| id   | customer_name | order_date | total_amount |
++------+---------------+------------+--------------+
+|    1 | Alice         | 2024-03-01 |      1300.00 |
+|    2 | Bob           | 2024-03-05 |      1250.00 |
+|    7 | Grace         | 2024-04-02 |      1600.00 |
+|    8 | Henry         | 2024-04-08 |       950.00 |
+|   10 | Jack          | 2024-04-18 |       650.00 |
+|   12 | Lily          | 2024-05-01 |      1150.00 |
+|   13 | Michael       | 2024-05-08 |      5500.00 |
+|   14 | Nancy         | 2024-05-15 |      2250.00 |
+|   15 | Oliver        | 2024-05-25 |       900.00 |
++------+---------------+------------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> DROP TABLE EMPLOYEES;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> CREATE TABLE Emp (
+    ->  id INT,
+    ->  name VARCHAR(100),
+    ->  dept VARCHAR(20),
+    ->  salary INT
+    ->  );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql>
+mysql> -- STEP 2: Insert Records
+mysql> INSERT INTO Emp VALUES
+    ->  (1, 'Alice', 'HR', 35000),
+    ->  (2, 'Bob', 'IT', 50000),
+    ->  (3, 'Charlie', 'Finance', 45000),
+    ->  (4, 'Diana', 'Marketing', 40000),
+    ->  (5, 'Eve', 'IT', 55000),
+    ->  (6, 'Frank', 'Finance', 48000),
+    ->  (7, 'Grace', 'Sales', 37000),
+    ->  (8, 'Henry', 'Admin', 42000),
+    ->  (9, 'Ivy', 'HR', 39000),
+    ->  (10, 'Jack', 'Sales', 46000),
+    ->  (11, 'Kevin', 'IT', 60000),
+    ->  (12, 'Lily', 'Marketing', 41000),
+    ->  (13, 'Michael', 'Admin', 38000),
+    ->  (14, 'Nancy', 'Finance', 52000),
+    ->  (15, 'Oliver', 'HR', 43000);
+Query OK, 15 rows affected (0.01 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> SELECT*FROM EMP;
++------+---------+-----------+--------+
+| id   | name    | dept      | salary |
++------+---------+-----------+--------+
+|    1 | Alice   | HR        |  35000 |
+|    2 | Bob     | IT        |  50000 |
+|    3 | Charlie | Finance   |  45000 |
+|    4 | Diana   | Marketing |  40000 |
+|    5 | Eve     | IT        |  55000 |
+|    6 | Frank   | Finance   |  48000 |
+|    7 | Grace   | Sales     |  37000 |
+|    8 | Henry   | Admin     |  42000 |
+|    9 | Ivy     | HR        |  39000 |
+|   10 | Jack    | Sales     |  46000 |
+|   11 | Kevin   | IT        |  60000 |
+|   12 | Lily    | Marketing |  41000 |
+|   13 | Michael | Admin     |  38000 |
+|   14 | Nancy   | Finance   |  52000 |
+|   15 | Oliver  | HR        |  43000 |
++------+---------+-----------+--------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT* FROM EMP WHERE DEPT IN ('FINANCE','IT');
++------+---------+---------+--------+
+| id   | name    | dept    | salary |
++------+---------+---------+--------+
+|    2 | Bob     | IT      |  50000 |
+|    3 | Charlie | Finance |  45000 |
+|    5 | Eve     | IT      |  55000 |
+|    6 | Frank   | Finance |  48000 |
+|   11 | Kevin   | IT      |  60000 |
+|   14 | Nancy   | Finance |  52000 |
++------+---------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> UPDATE EMP SET SALARY= SALARY+2000 WHERE DEPT IN ('HR','MARKETING');
+Query OK, 5 rows affected (0.04 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> SELECT*FROM EMP;
++------+---------+-----------+--------+
+| id   | name    | dept      | salary |
++------+---------+-----------+--------+
+|    1 | Alice   | HR        |  37000 |
+|    2 | Bob     | IT        |  50000 |
+|    3 | Charlie | Finance   |  45000 |
+|    4 | Diana   | Marketing |  42000 |
+|    5 | Eve     | IT        |  55000 |
+|    6 | Frank   | Finance   |  48000 |
+|    7 | Grace   | Sales     |  37000 |
+|    8 | Henry   | Admin     |  42000 |
+|    9 | Ivy     | HR        |  41000 |
+|   10 | Jack    | Sales     |  46000 |
+|   11 | Kevin   | IT        |  60000 |
+|   12 | Lily    | Marketing |  43000 |
+|   13 | Michael | Admin     |  38000 |
+|   14 | Nancy   | Finance   |  52000 |
+|   15 | Oliver  | HR        |  45000 |
++------+---------+-----------+--------+
+15 rows in set (0.00 sec)
+
+mysql> DELETE FROM EMP WHERE DEPT IS FINANCE OR MARKETING;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FINANCE OR MARKETING' at line 1
+mysql> DELETE FROM EMP WHERE DEPT IN ('FINANCE','MARKETING';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> DELETE FROM EMP WHERE DEPT IN ('FINANCE','MARKETING');
+Query OK, 5 rows affected (0.04 sec)
+
+mysql> SELECT*FROM EMP;
++------+---------+-------+--------+
+| id   | name    | dept  | salary |
++------+---------+-------+--------+
+|    1 | Alice   | HR    |  37000 |
+|    2 | Bob     | IT    |  50000 |
+|    5 | Eve     | IT    |  55000 |
+|    7 | Grace   | Sales |  37000 |
+|    8 | Henry   | Admin |  42000 |
+|    9 | Ivy     | HR    |  41000 |
+|   10 | Jack    | Sales |  46000 |
+|   11 | Kevin   | IT    |  60000 |
+|   13 | Michael | Admin |  38000 |
+|   15 | Oliver  | HR    |  45000 |
++------+---------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> DROP TABLE EMPLOYEES;
+ERROR 1051 (42S02): Unknown table 'da6.employees'
+mysql> DROP TABLE EMPLOYEES;
+ERROR 1051 (42S02): Unknown table 'da6.employees'
+mysql> SHOW TABLES;
++---------------+
+| Tables_in_da6 |
++---------------+
+| emp           |
+| orders        |
+| products      |
+| projects      |
+| students      |
+| studentscores |
++---------------+
+6 rows in set (0.00 sec)
+
+mysql> CREATE TABLE employees (
+    ->     emp_id INT PRIMARY KEY,
+    ->     emp_name VARCHAR(50),
+    ->     department VARCHAR(30),
+    ->     salary DECIMAL(10,2),
+    ->     experience INT,
+    ->     age INT
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+mysql> INSERT INTO employees VALUES
+    -> (101,'Ravi','IT',65000,5,28),
+    -> (102,'Priya','HR',45000,2,24),
+    -> (103,'Amit','Finance',75000,8,35),
+    -> (104,'Sneha','IT',55000,3,27),
+    -> (105,'Rahul','Sales',40000,1,22),
+    -> (106,'Kiran','Finance',90000,12,40),
+    -> (107,'Anjali','HR',52000,4,29),
+    -> (108,'Suresh','Sales',68000,7,33);
+Query OK, 8 rows affected (0.00 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> SELECT*FROMEMPLOYEES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROMEMPLOYEES' at line 1
+mysql> SELECT * FROM EMPLOYEES;
++--------+----------+------------+----------+------------+------+
+| emp_id | emp_name | department | salary   | experience | age  |
++--------+----------+------------+----------+------------+------+
+|    101 | Ravi     | IT         | 65000.00 |          5 |   28 |
+|    102 | Priya    | HR         | 45000.00 |          2 |   24 |
+|    103 | Amit     | Finance    | 75000.00 |          8 |   35 |
+|    104 | Sneha    | IT         | 55000.00 |          3 |   27 |
+|    105 | Rahul    | Sales      | 40000.00 |          1 |   22 |
+|    106 | Kiran    | Finance    | 90000.00 |         12 |   40 |
+|    107 | Anjali   | HR         | 52000.00 |          4 |   29 |
+|    108 | Suresh   | Sales      | 68000.00 |          7 |   33 |
++--------+----------+------------+----------+------------+------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT EMP_NAME,
+    -> SALARY,
+    -> CASE,
+    -> WHEN SALARY >= 80000 THEN 'HIGH SALARY',
+    -> WHEN SALARY >= 60000 THEN 'MEDIUM SALARY',
+    -> ELSE 'LOW SALARY',
+    -> END AS 'SALARY CATEGORY',
+    -> FROM EMPLOYEES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',
+WHEN SALARY >= 80000 THEN 'HIGH SALARY',
+WHEN SALARY >= 60000 THEN 'MEDIUM SAL' at line 3
+mysql> SELECT EMP_NAME,
+    -> SALARY,
+    -> CASE,
+    -> WHEN SALARY >= 80000 THEN 'HIGH SALARY',
+    -> WHEN SALARY >= 60000 THEN 'MEDIUM SALARY',
+    -> ELSE 'LOW SALARY',
+    -> END AS 'SALARY CATEGORY',
+    -> ^C
+mysql> SELECT EMP_NAME,
+    -> SALARY,
+    -> CASE,
+    -> WHEN SALARY >= 80000 THEN 'HIGH SALARY',
+    -> WHEN SALARY >= 60000 THEN 'MEDIUM SALARY',
+    -> ELSE 'LOW SALARY',
+    -> END AS 'SALARY_CATEGORY',
+    -> FROM EMPLOYEES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',
+WHEN SALARY >= 80000 THEN 'HIGH SALARY',
+WHEN SALARY >= 60000 THEN 'MEDIUM SAL' at line 3
+mysql> SELECT EMP_NAME,
+    -> SALARY,
+    -> CASE,
+    -> WHEN SALARY >= 80000 THEN 'HIGH SALARY',
+    -> WHEN SALARY >= 60000 THEN 'MEDIUM SALARY',
+    -> ELSE 'LOW SALARY',
+    -> END AS 'SALARY CATEGORY',
+    -> SELECT EMP_NAME,
+    -> FROM EMPLOYEES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',
+WHEN SALARY >= 80000 THEN 'HIGH SALARY',
+WHEN SALARY >= 60000 THEN 'MEDIUM SAL' at line 3
+mysql> SELECT EMP_NAME,
+    -> SALARY,
+    -> CASE,
+    -> WHEN SALARY>=80000 THEN 'HIGH SALARY',
+    ->
+    -> WHEN SALARY>=80000 THEN 'HIGH SALARY',^C
+mysql> SELECT EMP_NAME,
+    -> SALARY,
+    -> CASE,
+    -> WHEN SALARY>=60000 THEN 'MEDIUM SALARY'
+    -> WHEN SALARY>=60000 THEN 'MEDIUM SALARY'^C
+mysql> SELECT EMP_NAME,
+    -> SALARY
+    -> CASE
+    -> WHEN SALARY>=80000 THEN 'HIGH SALARY'
+    -> WHEN SALARY>=60000 THEN 'MEDIUM SALARY'
+    -> ELSE 'LOW SALARY'
+    -> END AS SALARY_CATEGORY FROM EMPLOYEES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CASE
+WHEN SALARY>=80000 THEN 'HIGH SALARY'
+WHEN SALARY>=60000 THEN 'MEDIUM SALAR' at line 3
+mysql> SELECT EMP_NAME,
+    -> SALARY,
+    -> CASE
+    -> WHEN SALARY>=80000 THEN 'HIGH SALARY'
+    -> WHEN SALARY>=60000 THEN 'MEDIUM SALARY'
+    -> ELSE 'LOW SALARY'
+    -> END AS SALARY_CATEGORY FROM EMPLOYEES;
++----------+----------+-----------------+
+| EMP_NAME | SALARY   | SALARY_CATEGORY |
++----------+----------+-----------------+
+| Ravi     | 65000.00 | MEDIUM SALARY   |
+| Priya    | 45000.00 | LOW SALARY      |
+| Amit     | 75000.00 | MEDIUM SALARY   |
+| Sneha    | 55000.00 | LOW SALARY      |
+| Rahul    | 40000.00 | LOW SALARY      |
+| Kiran    | 90000.00 | HIGH SALARY     |
+| Anjali   | 52000.00 | LOW SALARY      |
+| Suresh   | 68000.00 | MEDIUM SALARY   |
++----------+----------+-----------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT EMP_NAME,
+    -> EXPERIENCE,
+    -> CASE
+    -> WHEN EXPERIENCE >= 10 THEN 'EXPERT'
+    -> WHEN EXPERIENCE >= 5 THEN 'SENIOR'
+    -> WHEN EXPERIENCE >= 2 THEN 'JUNIOR'
+    -> ELSE 'FRESHER'
+    -> END AS EXPERIENCE_LEVEL FROM EMPLOYEES;
++----------+------------+------------------+
+| EMP_NAME | EXPERIENCE | EXPERIENCE_LEVEL |
++----------+------------+------------------+
+| Ravi     |          5 | SENIOR           |
+| Priya    |          2 | JUNIOR           |
+| Amit     |          8 | SENIOR           |
+| Sneha    |          3 | JUNIOR           |
+| Rahul    |          1 | FRESHER          |
+| Kiran    |         12 | EXPERT           |
+| Anjali   |          4 | JUNIOR           |
+| Suresh   |          7 | SENIOR           |
++----------+------------+------------------+
+8 rows in set (0.00 sec)
