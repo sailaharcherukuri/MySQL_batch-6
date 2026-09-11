@@ -1,0 +1,579 @@
+Enter password: ******************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE PFS6
+Database changed
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_pfs6 |
++----------------+
+| company_staff  |
++----------------+
+1 row in set (0.04 sec)
+
+mysql> ALTER TABLE COMPANY_STAFF DELETE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DELETE' at line 1
+mysql> DROP TABLE COMPANY_STAFF;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> SHOW TABLES;
+Empty set (0.00 sec)
+
+mysql> CREATE TABLE EMPLOYEES(
+    -> EMPID CHAR(5) PRIMARY KEY,
+    -> FIRSTNAME VARCHAR(50),
+    -> LASTNAME VARCHAR(30),
+    -> AGE INT,
+    -> DOJ DATE,
+    -> ADDRESS TINYTEXT,
+    -> DEPT VARCHAR(20)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> INSERT INTO EMPLOYEES(EMPID,FIRSTNAME,LASTNAME,AGE,DOJ,ADDRESS,DEPT)
+    -> VALUES
+    -> ('E0001','LAHAR','CHERUKURI','21','2005-08-07','VIZAG','TRAINEE');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> SELECT*FROM EMPLOYEES;
++-------+-----------+-----------+------+------------+---------+---------+
+| EMPID | FIRSTNAME | LASTNAME  | AGE  | DOJ        | ADDRESS | DEPT    |
++-------+-----------+-----------+------+------------+---------+---------+
+| E0001 | LAHAR     | CHERUKURI |   21 | 2005-08-07 | VIZAG   | TRAINEE |
++-------+-----------+-----------+------+------------+---------+---------+
+1 row in set (0.04 sec)
+
+mysql> INSERT INTO EMPLOYEES(EMPID,FIRSTNAME,LASTNAME,AGE,DOJ,ADDRESS,DEPT)
+    -> VALUES
+    -> ('E0002','SAI','CHERUKURI','21','2005-08-07','HYDERABAD','QUALITY ASSURANCE');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> SELECT* FROM EMPLOYEES;
++-------+-----------+-----------+------+------------+-----------+-------------------+
+| EMPID | FIRSTNAME | LASTNAME  | AGE  | DOJ        | ADDRESS   | DEPT              |
++-------+-----------+-----------+------+------------+-----------+-------------------+
+| E0001 | LAHAR     | CHERUKURI |   21 | 2005-08-07 | VIZAG     | TRAINEE           |
+| E0002 | SAI       | CHERUKURI |   21 | 2005-08-07 | HYDERABAD | QUALITY ASSURANCE |
++-------+-----------+-----------+------+------------+-----------+-------------------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEES VALUES('E0004','MAHESH','BABU','50','1975-08-09','HYDERABAD','ACTING'),
+    -> INSERT INTO EMPLOYEES VALUES('E0007','VIJAY','DEVARAKONDA','32','1992-09-08','HYDERABAD','ACTING');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSERT INTO EMPLOYEES VALUES('E0007','VIJAY','DEVARAKONDA','32','1992-09-08','HY' at line 2
+mysql> INSERT INTO EMPLOYEES VALUES('E0004','MAHESH','BABU','50','1975-08-09','HYDERABAD','ACTING'),
+    -> INSERT INTO EMPLOYEES
+    -> VALUES
+    -> ('E0004','MAHESH','BABU','50','1975-08-09','HYDERABAD','ACTING'),
+    -> ('E0007','VIJAY','DEVARAKONDA','32','1992-09-08','HYDERABAD','ACTING');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSERT INTO EMPLOYEES
+VALUES
+('E0004','MAHESH','BABU','50','1975-08-09','HYDERAB' at line 2
+mysql> INSERT INTO EMPLOYEES
+    -> VALUES
+    -> ('E0004','MAHESH','BABU','50','1975-08-09','HYDERABAD','ACTING'),
+    -> ('E0007','VIJAY','DEVARAKONDA','32','1992-09-08','HYDERABAD','ACTING');
+Query OK, 2 rows affected (0.04 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES;
++-------+-----------+-------------+------+------------+-----------+-------------------+
+| EMPID | FIRSTNAME | LASTNAME    | AGE  | DOJ        | ADDRESS   | DEPT              |
++-------+-----------+-------------+------+------------+-----------+-------------------+
+| E0001 | LAHAR     | CHERUKURI   |   21 | 2005-08-07 | VIZAG     | TRAINEE           |
+| E0002 | SAI       | CHERUKURI   |   21 | 2005-08-07 | HYDERABAD | QUALITY ASSURANCE |
+| E0004 | MAHESH    | BABU        |   50 | 1975-08-09 | HYDERABAD | ACTING            |
+| E0007 | VIJAY     | DEVARAKONDA |   32 | 1992-09-08 | HYDERABAD | ACTING            |
++-------+-----------+-------------+------+------------+-----------+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEES(DOJ,DEPT,ADDRESS,EMPID,FIRSTNAME,LASTNAME,AGE)
+    -> VALUES
+    -> ('2009-07-08','ACTING','HYD','0035','TARAK','RAMARAO','39');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT* FROM EMPLOYEES;
++-------+-----------+-------------+------+------------+-----------+-------------------+
+| EMPID | FIRSTNAME | LASTNAME    | AGE  | DOJ        | ADDRESS   | DEPT              |
++-------+-----------+-------------+------+------------+-----------+-------------------+
+| 0035  | TARAK     | RAMARAO     |   39 | 2009-07-08 | HYD       | ACTING            |
+| E0001 | LAHAR     | CHERUKURI   |   21 | 2005-08-07 | VIZAG     | TRAINEE           |
+| E0002 | SAI       | CHERUKURI   |   21 | 2005-08-07 | HYDERABAD | QUALITY ASSURANCE |
+| E0004 | MAHESH    | BABU        |   50 | 1975-08-09 | HYDERABAD | ACTING            |
+| E0007 | VIJAY     | DEVARAKONDA |   32 | 1992-09-08 | HYDERABAD | ACTING            |
++-------+-----------+-------------+------+------------+-----------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMPLPOYEES(EMPID,FIRSTNAME,AGE,ADDRESS,DEPT)
+    -> VALUES
+    ->
+    -> ('E0008','MEHAR NOLAN','46','HYD','DIRECTION');
+ERROR 1146 (42S02): Table 'pfs6.emplpoyees' doesn't exist
+mysql> INSERT INTO EMPLOYEES(EMPID,LASTNAME,AGE,DEPT,DOJ)
+    -> VALUES
+    -> ('E0006','KUNAL','45','IT','2020-08-06');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT* FROM EMPLOYEES;
++-------+-----------+-------------+------+------------+-----------+-------------------+
+| EMPID | FIRSTNAME | LASTNAME    | AGE  | DOJ        | ADDRESS   | DEPT              |
++-------+-----------+-------------+------+------------+-----------+-------------------+
+| 0035  | TARAK     | RAMARAO     |   39 | 2009-07-08 | HYD       | ACTING            |
+| E0001 | LAHAR     | CHERUKURI   |   21 | 2005-08-07 | VIZAG     | TRAINEE           |
+| E0002 | SAI       | CHERUKURI   |   21 | 2005-08-07 | HYDERABAD | QUALITY ASSURANCE |
+| E0004 | MAHESH    | BABU        |   50 | 1975-08-09 | HYDERABAD | ACTING            |
+| E0006 | NULL      | KUNAL       |   45 | 2020-08-06 | NULL      | IT                |
+| E0007 | VIJAY     | DEVARAKONDA |   32 | 1992-09-08 | HYDERABAD | ACTING            |
++-------+-----------+-------------+------+------------+-----------+-------------------+
+6 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEES(EMPID,LASTNAME,DOJ,DEPT)VALUES('E0009','SARKAR','2009-09-09','PLUMBER');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT* FROM EMPLOYEES;
++-------+-----------+-------------+------+------------+-----------+-------------------+
+| EMPID | FIRSTNAME | LASTNAME    | AGE  | DOJ        | ADDRESS   | DEPT              |
++-------+-----------+-------------+------+------------+-----------+-------------------+
+| 0035  | TARAK     | RAMARAO     |   39 | 2009-07-08 | HYD       | ACTING            |
+| E0001 | LAHAR     | CHERUKURI   |   21 | 2005-08-07 | VIZAG     | TRAINEE           |
+| E0002 | SAI       | CHERUKURI   |   21 | 2005-08-07 | HYDERABAD | QUALITY ASSURANCE |
+| E0004 | MAHESH    | BABU        |   50 | 1975-08-09 | HYDERABAD | ACTING            |
+| E0006 | NULL      | KUNAL       |   45 | 2020-08-06 | NULL      | IT                |
+| E0007 | VIJAY     | DEVARAKONDA |   32 | 1992-09-08 | HYDERABAD | ACTING            |
+| E0009 | NULL      | SARKAR      | NULL | 2009-09-09 | NULL      | PLUMBER           |
++-------+-----------+-------------+------+------------+-----------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEEES SET FIRSTNAME='KATRINA' WHERE EMPID='E0002';
+ERROR 1146 (42S02): Table 'pfs6.employeees' doesn't exist
+mysql> UPDATE EMPLOYEES SET FIRSTNAME='KATRINA' WHERE EMPID='E0002';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES WHERE EMPID='E0002';
++-------+-----------+-----------+------+------------+-----------+-------------------+
+| EMPID | FIRSTNAME | LASTNAME  | AGE  | DOJ        | ADDRESS   | DEPT              |
++-------+-----------+-----------+------+------------+-----------+-------------------+
+| E0002 | KATRINA   | CHERUKURI |   21 | 2005-08-07 | HYDERABAD | QUALITY ASSURANCE |
++-------+-----------+-----------+------+------------+-----------+-------------------+
+1 row in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET FIRSTNAME='CHANDRA' WHERE EMPID='E0004';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES WHERE EMPID='E0004';
++-------+-----------+----------+------+------------+-----------+--------+
+| EMPID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS   | DEPT   |
++-------+-----------+----------+------+------------+-----------+--------+
+| E0004 | CHANDRA   | BABU     |   50 | 1975-08-09 | HYDERABAD | ACTING |
++-------+-----------+----------+------+------------+-----------+--------+
+1 row in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET FIRSTNAME='MAHESH' WHERE LASTNAME='BABU';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES WHERE LASTNAME='BABU'
+    -> SELECT* FROM EMPLOYEES WHERE LASTNAME='BABU';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT* FROM EMPLOYEES WHERE LASTNAME='BABU'' at line 2
+mysql> SELECT* FROM EMPLOYEES;
++-------+-----------+-------------+------+------------+-----------+-------------------+
+| EMPID | FIRSTNAME | LASTNAME    | AGE  | DOJ        | ADDRESS   | DEPT              |
++-------+-----------+-------------+------+------------+-----------+-------------------+
+| 0035  | TARAK     | RAMARAO     |   39 | 2009-07-08 | HYD       | ACTING            |
+| E0001 | LAHAR     | CHERUKURI   |   21 | 2005-08-07 | VIZAG     | TRAINEE           |
+| E0002 | KATRINA   | CHERUKURI   |   21 | 2005-08-07 | HYDERABAD | QUALITY ASSURANCE |
+| E0004 | MAHESH    | BABU        |   50 | 1975-08-09 | HYDERABAD | ACTING            |
+| E0006 | NULL      | KUNAL       |   45 | 2020-08-06 | NULL      | IT                |
+| E0007 | VIJAY     | DEVARAKONDA |   32 | 1992-09-08 | HYDERABAD | ACTING            |
+| E0009 | NULL      | SARKAR      | NULL | 2009-09-09 | NULL      | PLUMBER           |
++-------+-----------+-------------+------+------------+-----------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET AGE='50' WHERE AGE IS NULL;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES;
++-------+-----------+-------------+------+------------+-----------+-------------------+
+| EMPID | FIRSTNAME | LASTNAME    | AGE  | DOJ        | ADDRESS   | DEPT              |
++-------+-----------+-------------+------+------------+-----------+-------------------+
+| 0035  | TARAK     | RAMARAO     |   39 | 2009-07-08 | HYD       | ACTING            |
+| E0001 | LAHAR     | CHERUKURI   |   21 | 2005-08-07 | VIZAG     | TRAINEE           |
+| E0002 | KATRINA   | CHERUKURI   |   21 | 2005-08-07 | HYDERABAD | QUALITY ASSURANCE |
+| E0004 | MAHESH    | BABU        |   50 | 1975-08-09 | HYDERABAD | ACTING            |
+| E0006 | NULL      | KUNAL       |   45 | 2020-08-06 | NULL      | IT                |
+| E0007 | VIJAY     | DEVARAKONDA |   32 | 1992-09-08 | HYDERABAD | ACTING            |
+| E0009 | NULL      | SARKAR      |   50 | 2009-09-09 | NULL      | PLUMBER           |
++-------+-----------+-------------+------+------------+-----------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT* FROM EMPLOYEES WHERE AGE='50';
++-------+-----------+----------+------+------------+-----------+---------+
+| EMPID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS   | DEPT    |
++-------+-----------+----------+------+------------+-----------+---------+
+| E0004 | MAHESH    | BABU     |   50 | 1975-08-09 | HYDERABAD | ACTING  |
+| E0009 | NULL      | SARKAR   |   50 | 2009-09-09 | NULL      | PLUMBER |
++-------+-----------+----------+------+------------+-----------+---------+
+2 rows in set (0.04 sec)
+
+mysql> UPDATE EMPLOYEES SET FIRSTNAME='ARJUN' WHERE FIRSTNAME IS NULL;
+Query OK, 2 rows affected (0.04 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES;
++-------+-----------+-------------+------+------------+-----------+-------------------+
+| EMPID | FIRSTNAME | LASTNAME    | AGE  | DOJ        | ADDRESS   | DEPT              |
++-------+-----------+-------------+------+------------+-----------+-------------------+
+| 0035  | TARAK     | RAMARAO     |   39 | 2009-07-08 | HYD       | ACTING            |
+| E0001 | LAHAR     | CHERUKURI   |   21 | 2005-08-07 | VIZAG     | TRAINEE           |
+| E0002 | KATRINA   | CHERUKURI   |   21 | 2005-08-07 | HYDERABAD | QUALITY ASSURANCE |
+| E0004 | MAHESH    | BABU        |   50 | 1975-08-09 | HYDERABAD | ACTING            |
+| E0006 | ARJUN     | KUNAL       |   45 | 2020-08-06 | NULL      | IT                |
+| E0007 | VIJAY     | DEVARAKONDA |   32 | 1992-09-08 | HYDERABAD | ACTING            |
+| E0009 | ARJUN     | SARKAR      |   50 | 2009-09-09 | NULL      | PLUMBER           |
++-------+-----------+-------------+------+------------+-----------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET LASTNAME='ANTONY' WHERE FIRSTNAME='VIJAY';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES;
++-------+-----------+-----------+------+------------+-----------+-------------------+
+| EMPID | FIRSTNAME | LASTNAME  | AGE  | DOJ        | ADDRESS   | DEPT              |
++-------+-----------+-----------+------+------------+-----------+-------------------+
+| 0035  | TARAK     | RAMARAO   |   39 | 2009-07-08 | HYD       | ACTING            |
+| E0001 | LAHAR     | CHERUKURI |   21 | 2005-08-07 | VIZAG     | TRAINEE           |
+| E0002 | KATRINA   | CHERUKURI |   21 | 2005-08-07 | HYDERABAD | QUALITY ASSURANCE |
+| E0004 | MAHESH    | BABU      |   50 | 1975-08-09 | HYDERABAD | ACTING            |
+| E0006 | ARJUN     | KUNAL     |   45 | 2020-08-06 | NULL      | IT                |
+| E0007 | VIJAY     | ANTONY    |   32 | 1992-09-08 | HYDERABAD | ACTING            |
+| E0009 | ARJUN     | SARKAR    |   50 | 2009-09-09 | NULL      | PLUMBER           |
++-------+-----------+-----------+------+------------+-----------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET DOJ='2026-09-05' WHERE EMPID='E0004';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES;
++-------+-----------+-----------+------+------------+-----------+-------------------+
+| EMPID | FIRSTNAME | LASTNAME  | AGE  | DOJ        | ADDRESS   | DEPT              |
++-------+-----------+-----------+------+------------+-----------+-------------------+
+| 0035  | TARAK     | RAMARAO   |   39 | 2009-07-08 | HYD       | ACTING            |
+| E0001 | LAHAR     | CHERUKURI |   21 | 2005-08-07 | VIZAG     | TRAINEE           |
+| E0002 | KATRINA   | CHERUKURI |   21 | 2005-08-07 | HYDERABAD | QUALITY ASSURANCE |
+| E0004 | MAHESH    | BABU      |   50 | 2026-09-05 | HYDERABAD | ACTING            |
+| E0006 | ARJUN     | KUNAL     |   45 | 2020-08-06 | NULL      | IT                |
+| E0007 | VIJAY     | ANTONY    |   32 | 1992-09-08 | HYDERABAD | ACTING            |
+| E0009 | ARJUN     | SARKAR    |   50 | 2009-09-09 | NULL      | PLUMBER           |
++-------+-----------+-----------+------+------------+-----------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET ADDRESS='KOLKATA' WHERE DEPT='IT';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES;
++-------+-----------+-----------+------+------------+-----------+-------------------+
+| EMPID | FIRSTNAME | LASTNAME  | AGE  | DOJ        | ADDRESS   | DEPT              |
++-------+-----------+-----------+------+------------+-----------+-------------------+
+| 0035  | TARAK     | RAMARAO   |   39 | 2009-07-08 | HYD       | ACTING            |
+| E0001 | LAHAR     | CHERUKURI |   21 | 2005-08-07 | VIZAG     | TRAINEE           |
+| E0002 | KATRINA   | CHERUKURI |   21 | 2005-08-07 | HYDERABAD | QUALITY ASSURANCE |
+| E0004 | MAHESH    | BABU      |   50 | 2026-09-05 | HYDERABAD | ACTING            |
+| E0006 | ARJUN     | KUNAL     |   45 | 2020-08-06 | KOLKATA   | IT                |
+| E0007 | VIJAY     | ANTONY    |   32 | 1992-09-08 | HYDERABAD | ACTING            |
+| E0009 | ARJUN     | SARKAR    |   50 | 2009-09-09 | NULL      | PLUMBER           |
++-------+-----------+-----------+------+------------+-----------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> DELETE FROM EMPLOYEES WHERE EMPID='E0009';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT* FROM EMPLOYEES;
++-------+-----------+-----------+------+------------+-----------+-------------------+
+| EMPID | FIRSTNAME | LASTNAME  | AGE  | DOJ        | ADDRESS   | DEPT              |
++-------+-----------+-----------+------+------------+-----------+-------------------+
+| 0035  | TARAK     | RAMARAO   |   39 | 2009-07-08 | HYD       | ACTING            |
+| E0001 | LAHAR     | CHERUKURI |   21 | 2005-08-07 | VIZAG     | TRAINEE           |
+| E0002 | KATRINA   | CHERUKURI |   21 | 2005-08-07 | HYDERABAD | QUALITY ASSURANCE |
+| E0004 | MAHESH    | BABU      |   50 | 2026-09-05 | HYDERABAD | ACTING            |
+| E0006 | ARJUN     | KUNAL     |   45 | 2020-08-06 | KOLKATA   | IT                |
+| E0007 | VIJAY     | ANTONY    |   32 | 1992-09-08 | HYDERABAD | ACTING            |
++-------+-----------+-----------+------+------------+-----------+-------------------+
+6 rows in set (0.00 sec)
+
+mysql> DELETE FROM EMPLOYEES WHERE FIRSTNAME='TARAK';
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT* FROM EMPLOYEE;
+ERROR 1146 (42S02): Table 'pfs6.employee' doesn't exist
+mysql>
+mysql> SELECT* FROM EMPLOYEES;
++-------+-----------+-----------+------+------------+-----------+-------------------+
+| EMPID | FIRSTNAME | LASTNAME  | AGE  | DOJ        | ADDRESS   | DEPT              |
++-------+-----------+-----------+------+------------+-----------+-------------------+
+| E0001 | LAHAR     | CHERUKURI |   21 | 2005-08-07 | VIZAG     | TRAINEE           |
+| E0002 | KATRINA   | CHERUKURI |   21 | 2005-08-07 | HYDERABAD | QUALITY ASSURANCE |
+| E0004 | MAHESH    | BABU      |   50 | 2026-09-05 | HYDERABAD | ACTING            |
+| E0006 | ARJUN     | KUNAL     |   45 | 2020-08-06 | KOLKATA   | IT                |
+| E0007 | VIJAY     | ANTONY    |   32 | 1992-09-08 | HYDERABAD | ACTING            |
++-------+-----------+-----------+------+------------+-----------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> TRUNCATE TABLE EMPLOYEES;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> SELECT* FROM EMPLOYEES;
+Empty set (0.00 sec)
+
+mysql> DESC EMPLOYEES;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| EMPID     | char(5)     | NO   | PRI | NULL    |       |
+| FIRSTNAME | varchar(50) | YES  |     | NULL    |       |
+| LASTNAME  | varchar(30) | YES  |     | NULL    |       |
+| AGE       | int         | YES  |     | NULL    |       |
+| DOJ       | date        | YES  |     | NULL    |       |
+| ADDRESS   | tinytext    | YES  |     | NULL    |       |
+| DEPT      | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (0.05 sec)
+
+mysql> DROP TABLE EMPLOYEES;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> DESC EMPLOYEES;
+ERROR 1146 (42S02): Table 'pfs6.employees' doesn't exist
+mysql> CREATE TABLE employees (
+    ->     emp_id INT PRIMARY KEY,
+    ->     emp_name VARCHAR(100),
+    ->     department VARCHAR(50),
+    ->     job_role VARCHAR(50),
+    ->     salary DECIMAL(10,2),
+    ->     joining_date DATE,
+    ->     city VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql>
+mysql> INSERT INTO employees
+    -> (emp_id, emp_name, department, job_role, salary, joining_date, city)
+    -> VALUES
+    -> (101, 'Ravi Kumar', 'IT', 'Developer', 45000, '2023-01-15', 'Vizag'),
+    -> (102, 'Priya Sharma', 'HR', 'HR Manager', 55000, '2022-06-20', 'Hyderabad'),
+    -> (103, 'Kiran Reddy', 'IT', 'Tester', 40000, '2023-03-10', 'Vizag'),
+    -> (104, 'Sneha Rao', 'Finance', 'Accountant', 48000, '2021-11-25', 'Chennai'),
+    -> (105, 'Arun Kumar', 'IT', 'Developer', 60000, '2020-08-18', 'Bangalore'),
+    -> (106, 'Divya Reddy', 'HR', 'Recruiter', 35000, '2024-01-05', 'Vizag'),
+    -> (107, 'Suresh Babu', 'Sales', 'Executive', 42000, '2022-09-12', 'Hyderabad'),
+    -> (108, 'Anjali Devi', 'IT', 'Developer', 70000, '2019-05-30', 'Chennai'),
+    -> (109, 'Mahesh Kumar', 'Sales', 'Manager', 65000, '2020-02-14', 'Bangalore'),
+    -> (110, 'Lakshmi Rao', 'Finance', 'Analyst', 52000, '2023-07-22', 'Hyderabad');
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES;
++--------+--------------+------------+------------+----------+--------------+-----------+
+| emp_id | emp_name     | department | job_role   | salary   | joining_date | city      |
++--------+--------------+------------+------------+----------+--------------+-----------+
+|    101 | Ravi Kumar   | IT         | Developer  | 45000.00 | 2023-01-15   | Vizag     |
+|    102 | Priya Sharma | HR         | HR Manager | 55000.00 | 2022-06-20   | Hyderabad |
+|    103 | Kiran Reddy  | IT         | Tester     | 40000.00 | 2023-03-10   | Vizag     |
+|    104 | Sneha Rao    | Finance    | Accountant | 48000.00 | 2021-11-25   | Chennai   |
+|    105 | Arun Kumar   | IT         | Developer  | 60000.00 | 2020-08-18   | Bangalore |
+|    106 | Divya Reddy  | HR         | Recruiter  | 35000.00 | 2024-01-05   | Vizag     |
+|    107 | Suresh Babu  | Sales      | Executive  | 42000.00 | 2022-09-12   | Hyderabad |
+|    108 | Anjali Devi  | IT         | Developer  | 70000.00 | 2019-05-30   | Chennai   |
+|    109 | Mahesh Kumar | Sales      | Manager    | 65000.00 | 2020-02-14   | Bangalore |
+|    110 | Lakshmi Rao  | Finance    | Analyst    | 52000.00 | 2023-07-22   | Hyderabad |
++--------+--------------+------------+------------+----------+--------------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEES ADD COLUMN EMAIL VARCHAR(100);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMPLOYEES;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| emp_id       | int           | NO   | PRI | NULL    |       |
+| emp_name     | varchar(100)  | YES  |     | NULL    |       |
+| department   | varchar(50)   | YES  |     | NULL    |       |
+| job_role     | varchar(50)   | YES  |     | NULL    |       |
+| salary       | decimal(10,2) | YES  |     | NULL    |       |
+| joining_date | date          | YES  |     | NULL    |       |
+| city         | varchar(50)   | YES  |     | NULL    |       |
+| EMAIL        | varchar(100)  | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT* FROM EMPLOYEES;
++--------+--------------+------------+------------+----------+--------------+-----------+-------+
+| emp_id | emp_name     | department | job_role   | salary   | joining_date | city      | EMAIL |
++--------+--------------+------------+------------+----------+--------------+-----------+-------+
+|    101 | Ravi Kumar   | IT         | Developer  | 45000.00 | 2023-01-15   | Vizag     | NULL  |
+|    102 | Priya Sharma | HR         | HR Manager | 55000.00 | 2022-06-20   | Hyderabad | NULL  |
+|    103 | Kiran Reddy  | IT         | Tester     | 40000.00 | 2023-03-10   | Vizag     | NULL  |
+|    104 | Sneha Rao    | Finance    | Accountant | 48000.00 | 2021-11-25   | Chennai   | NULL  |
+|    105 | Arun Kumar   | IT         | Developer  | 60000.00 | 2020-08-18   | Bangalore | NULL  |
+|    106 | Divya Reddy  | HR         | Recruiter  | 35000.00 | 2024-01-05   | Vizag     | NULL  |
+|    107 | Suresh Babu  | Sales      | Executive  | 42000.00 | 2022-09-12   | Hyderabad | NULL  |
+|    108 | Anjali Devi  | IT         | Developer  | 70000.00 | 2019-05-30   | Chennai   | NULL  |
+|    109 | Mahesh Kumar | Sales      | Manager    | 65000.00 | 2020-02-14   | Bangalore | NULL  |
+|    110 | Lakshmi Rao  | Finance    | Analyst    | 52000.00 | 2023-07-22   | Hyderabad | NULL  |
++--------+--------------+------------+------------+----------+--------------+-----------+-------+
+10 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEES ADD COLUMN PHONE VARCHAR(15);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES;
++--------+--------------+------------+------------+----------+--------------+-----------+-------+-------+
+| emp_id | emp_name     | department | job_role   | salary   | joining_date | city      | EMAIL | PHONE |
++--------+--------------+------------+------------+----------+--------------+-----------+-------+-------+
+|    101 | Ravi Kumar   | IT         | Developer  | 45000.00 | 2023-01-15   | Vizag     | NULL  | NULL  |
+|    102 | Priya Sharma | HR         | HR Manager | 55000.00 | 2022-06-20   | Hyderabad | NULL  | NULL  |
+|    103 | Kiran Reddy  | IT         | Tester     | 40000.00 | 2023-03-10   | Vizag     | NULL  | NULL  |
+|    104 | Sneha Rao    | Finance    | Accountant | 48000.00 | 2021-11-25   | Chennai   | NULL  | NULL  |
+|    105 | Arun Kumar   | IT         | Developer  | 60000.00 | 2020-08-18   | Bangalore | NULL  | NULL  |
+|    106 | Divya Reddy  | HR         | Recruiter  | 35000.00 | 2024-01-05   | Vizag     | NULL  | NULL  |
+|    107 | Suresh Babu  | Sales      | Executive  | 42000.00 | 2022-09-12   | Hyderabad | NULL  | NULL  |
+|    108 | Anjali Devi  | IT         | Developer  | 70000.00 | 2019-05-30   | Chennai   | NULL  | NULL  |
+|    109 | Mahesh Kumar | Sales      | Manager    | 65000.00 | 2020-02-14   | Bangalore | NULL  | NULL  |
+|    110 | Lakshmi Rao  | Finance    | Analyst    | 52000.00 | 2023-07-22   | Hyderabad | NULL  | NULL  |
++--------+--------------+------------+------------+----------+--------------+-----------+-------+-------+
+10 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEES MODIFY CITY VARCHAR(100);
+Query OK, 10 rows affected (0.09 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES;
++--------+--------------+------------+------------+----------+--------------+-----------+-------+-------+
+| emp_id | emp_name     | department | job_role   | salary   | joining_date | CITY      | EMAIL | PHONE |
++--------+--------------+------------+------------+----------+--------------+-----------+-------+-------+
+|    101 | Ravi Kumar   | IT         | Developer  | 45000.00 | 2023-01-15   | Vizag     | NULL  | NULL  |
+|    102 | Priya Sharma | HR         | HR Manager | 55000.00 | 2022-06-20   | Hyderabad | NULL  | NULL  |
+|    103 | Kiran Reddy  | IT         | Tester     | 40000.00 | 2023-03-10   | Vizag     | NULL  | NULL  |
+|    104 | Sneha Rao    | Finance    | Accountant | 48000.00 | 2021-11-25   | Chennai   | NULL  | NULL  |
+|    105 | Arun Kumar   | IT         | Developer  | 60000.00 | 2020-08-18   | Bangalore | NULL  | NULL  |
+|    106 | Divya Reddy  | HR         | Recruiter  | 35000.00 | 2024-01-05   | Vizag     | NULL  | NULL  |
+|    107 | Suresh Babu  | Sales      | Executive  | 42000.00 | 2022-09-12   | Hyderabad | NULL  | NULL  |
+|    108 | Anjali Devi  | IT         | Developer  | 70000.00 | 2019-05-30   | Chennai   | NULL  | NULL  |
+|    109 | Mahesh Kumar | Sales      | Manager    | 65000.00 | 2020-02-14   | Bangalore | NULL  | NULL  |
+|    110 | Lakshmi Rao  | Finance    | Analyst    | 52000.00 | 2023-07-22   | Hyderabad | NULL  | NULL  |
++--------+--------------+------------+------------+----------+--------------+-----------+-------+-------+
+10 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEES MODIFY JOB_ROLE DESIGNATION;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DESIGNATION' at line 1
+mysql> ALTER TABLE EMPLOYEES MODIFY JOB_ROLE TO DESIGNATION;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TO DESIGNATION' at line 1
+mysql> ALTER TABLE EMPLOYEES CHANGE JOB_ROLE DESIGNATION;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> ALTER TABLE EMPLOYEES CHANGE JOB_ROLE DESIGNATION VARCHAR(50);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES;
++--------+--------------+------------+-------------+----------+--------------+-----------+-------+-------+
+| emp_id | emp_name     | department | DESIGNATION | salary   | joining_date | CITY      | EMAIL | PHONE |
++--------+--------------+------------+-------------+----------+--------------+-----------+-------+-------+
+|    101 | Ravi Kumar   | IT         | Developer   | 45000.00 | 2023-01-15   | Vizag     | NULL  | NULL  |
+|    102 | Priya Sharma | HR         | HR Manager  | 55000.00 | 2022-06-20   | Hyderabad | NULL  | NULL  |
+|    103 | Kiran Reddy  | IT         | Tester      | 40000.00 | 2023-03-10   | Vizag     | NULL  | NULL  |
+|    104 | Sneha Rao    | Finance    | Accountant  | 48000.00 | 2021-11-25   | Chennai   | NULL  | NULL  |
+|    105 | Arun Kumar   | IT         | Developer   | 60000.00 | 2020-08-18   | Bangalore | NULL  | NULL  |
+|    106 | Divya Reddy  | HR         | Recruiter   | 35000.00 | 2024-01-05   | Vizag     | NULL  | NULL  |
+|    107 | Suresh Babu  | Sales      | Executive   | 42000.00 | 2022-09-12   | Hyderabad | NULL  | NULL  |
+|    108 | Anjali Devi  | IT         | Developer   | 70000.00 | 2019-05-30   | Chennai   | NULL  | NULL  |
+|    109 | Mahesh Kumar | Sales      | Manager     | 65000.00 | 2020-02-14   | Bangalore | NULL  | NULL  |
+|    110 | Lakshmi Rao  | Finance    | Analyst     | 52000.00 | 2023-07-22   | Hyderabad | NULL  | NULL  |
++--------+--------------+------------+-------------+----------+--------------+-----------+-------+-------+
+10 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEES DROP COLUMN PHONE;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES;
++--------+--------------+------------+-------------+----------+--------------+-----------+-------+
+| emp_id | emp_name     | department | DESIGNATION | salary   | joining_date | CITY      | EMAIL |
++--------+--------------+------------+-------------+----------+--------------+-----------+-------+
+|    101 | Ravi Kumar   | IT         | Developer   | 45000.00 | 2023-01-15   | Vizag     | NULL  |
+|    102 | Priya Sharma | HR         | HR Manager  | 55000.00 | 2022-06-20   | Hyderabad | NULL  |
+|    103 | Kiran Reddy  | IT         | Tester      | 40000.00 | 2023-03-10   | Vizag     | NULL  |
+|    104 | Sneha Rao    | Finance    | Accountant  | 48000.00 | 2021-11-25   | Chennai   | NULL  |
+|    105 | Arun Kumar   | IT         | Developer   | 60000.00 | 2020-08-18   | Bangalore | NULL  |
+|    106 | Divya Reddy  | HR         | Recruiter   | 35000.00 | 2024-01-05   | Vizag     | NULL  |
+|    107 | Suresh Babu  | Sales      | Executive   | 42000.00 | 2022-09-12   | Hyderabad | NULL  |
+|    108 | Anjali Devi  | IT         | Developer   | 70000.00 | 2019-05-30   | Chennai   | NULL  |
+|    109 | Mahesh Kumar | Sales      | Manager     | 65000.00 | 2020-02-14   | Bangalore | NULL  |
+|    110 | Lakshmi Rao  | Finance    | Analyst     | 52000.00 | 2023-07-22   | Hyderabad | NULL  |
++--------+--------------+------------+-------------+----------+--------------+-----------+-------+
+10 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET SALARY='50000' WHERE EMP_NAME='RAVI KUMAR';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES;
++--------+--------------+------------+-------------+----------+--------------+-----------+-------+
+| emp_id | emp_name     | department | DESIGNATION | salary   | joining_date | CITY      | EMAIL |
++--------+--------------+------------+-------------+----------+--------------+-----------+-------+
+|    101 | Ravi Kumar   | IT         | Developer   | 50000.00 | 2023-01-15   | Vizag     | NULL  |
+|    102 | Priya Sharma | HR         | HR Manager  | 55000.00 | 2022-06-20   | Hyderabad | NULL  |
+|    103 | Kiran Reddy  | IT         | Tester      | 40000.00 | 2023-03-10   | Vizag     | NULL  |
+|    104 | Sneha Rao    | Finance    | Accountant  | 48000.00 | 2021-11-25   | Chennai   | NULL  |
+|    105 | Arun Kumar   | IT         | Developer   | 60000.00 | 2020-08-18   | Bangalore | NULL  |
+|    106 | Divya Reddy  | HR         | Recruiter   | 35000.00 | 2024-01-05   | Vizag     | NULL  |
+|    107 | Suresh Babu  | Sales      | Executive   | 42000.00 | 2022-09-12   | Hyderabad | NULL  |
+|    108 | Anjali Devi  | IT         | Developer   | 70000.00 | 2019-05-30   | Chennai   | NULL  |
+|    109 | Mahesh Kumar | Sales      | Manager     | 65000.00 | 2020-02-14   | Bangalore | NULL  |
+|    110 | Lakshmi Rao  | Finance    | Analyst     | 52000.00 | 2023-07-22   | Hyderabad | NULL  |
++--------+--------------+------------+-------------+----------+--------------+-----------+-------+
+10 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET SALARY+(SALARY*0.10) WHERE DEPARTMENT='IT';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '+(SALARY*0.10) WHERE DEPARTMENT='IT'' at line 1
+mysql> UPDATE EMPLOYEES SET SALARY+(SALARY+0.10) WHERE DEPARTMENT='IT';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '+(SALARY+0.10) WHERE DEPARTMENT='IT'' at line 1
+mysql> UPDATE EMPLOYEES SET SALARY=SALARY+(SALARY*0.10) WHERE DEPARTMENT='IT';
+Query OK, 4 rows affected (0.02 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEES;
++--------+--------------+------------+-------------+----------+--------------+-----------+-------+
+| emp_id | emp_name     | department | DESIGNATION | salary   | joining_date | CITY      | EMAIL |
++--------+--------------+------------+-------------+----------+--------------+-----------+-------+
+|    101 | Ravi Kumar   | IT         | Developer   | 55000.00 | 2023-01-15   | Vizag     | NULL  |
+|    102 | Priya Sharma | HR         | HR Manager  | 55000.00 | 2022-06-20   | Hyderabad | NULL  |
+|    103 | Kiran Reddy  | IT         | Tester      | 44000.00 | 2023-03-10   | Vizag     | NULL  |
+|    104 | Sneha Rao    | Finance    | Accountant  | 48000.00 | 2021-11-25   | Chennai   | NULL  |
+|    105 | Arun Kumar   | IT         | Developer   | 66000.00 | 2020-08-18   | Bangalore | NULL  |
+|    106 | Divya Reddy  | HR         | Recruiter   | 35000.00 | 2024-01-05   | Vizag     | NULL  |
+|    107 | Suresh Babu  | Sales      | Executive   | 42000.00 | 2022-09-12   | Hyderabad | NULL  |
+|    108 | Anjali Devi  | IT         | Developer   | 77000.00 | 2019-05-30   | Chennai   | NULL  |
+|    109 | Mahesh Kumar | Sales      | Manager     | 65000.00 | 2020-02-14   | Bangalore | NULL  |
+|    110 | Lakshmi Rao  | Finance    | Analyst     | 52000.00 | 2023-07-22   | Hyderabad | NULL  |
++--------+--------------+------------+-------------+----------+--------------+-----------+-------+
+10 rows in set (0.00 sec)
+
+mysql>
