@@ -1,0 +1,105 @@
+What is data?
+--------------
+Raw facts or figures without context
+example :101, lahar, vizag , 20000
+
+What is field?
+--------------
+smallest unit of data in database(column/attribute)
+example: 9101, 'sunny', 50000)
+
+What is record ?
+---------------
+Collection of related fields(row/tuple)
+ex = (101, 'sunny', 50000)
+
+What is data base ?
+Organized collection of related records stored together.
+ex = an employee database containing all employee records.
+
+Client-server architecture
+------------------------
+Client:
+-------
+ The roe of the client in client server architecture is to send request to the server and to get response from the server.
+
+server:
+-------
+The role of the server in client server architecture is to receive requests from the client, If the request is valid it will generate a response, we can handover hat response to the client, If the client request is not a valid request , It will raise some error status codes.
+
+Protocol:
+---------
+It has some rules and regulations. The role of the protocol in client-server architecture is to send request from client to server.
+
+Identifiers:
+------------
+1. a-z,A-Z,0-9,_,#
+2.Identifier should not start with digit
+3. Spaces are not considered to declare identifiers.
+4. reserved words re not considered to declare identifiers.
+5. Max length to declare is 15.
+
+=======================
+
+SQL(Structured Query Language)
+------------------------------
+-->  structured query language  is a standardized programming language specially designed for managing and manipulating relational databases. It provides a declarative syntax that allows users to define what data they wanted to retrieve, insert, update or delete without specifying exactly how database should execute these operations.
+
+SQL Commands
+=============
+DDL : Data Definition Language
+-------------------------------
+
+It defines and modifies the structure of database objects(tables, schemas, indexes)
+
+CREATE :- Creates a new database objects such as tables, database, views, indexes or triggers.......etc
+
+How to create database ?
+------------------------
+
+Syntax: CREATE DATABASE database-name;
+                or
+        CREATE SCHEMA schema-name;
+
+How to create table ?
+-----------------------
+
+Syntax: CREATE TABLE table-name;
+column-name datatype(size) constraint,
+column-name datatype(size) constraint,
+column-name datatype(size) constraint,
+column-name datatype(size) constraint,
+
+
+ALTER
+DROP :- Permanently deletes an existing database objects(tables,database,index,views) along with it's data and structure.
+
+How to drop database/Schema?
+----------------------------
+syntax:- drop database database-name
+               or
+         drop schema  schema-name;
+How to drop a table ?
+---------------------
+Syntax:- drop table table-name;
+
+
+TRUNCATE
+RENAME
+
+DML (Data Manipulation Language)
+----------------------------------
+It manages data stored within database objects(insert, update, delete)
+
+DCL( Data Control Language)
+----------------------------
+
+It Manages permissions and access control on database objects.
+
+TCL(Transaction Control Language)
+---------------------------------
+It manages transactions to maintain data integrity.
+
+DQL(Data Query Language)
+--------------------------
+It's used to fetch/retrieve data from the database. 
