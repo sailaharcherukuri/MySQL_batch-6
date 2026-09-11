@@ -1,0 +1,227 @@
+DCL COMMANDS:
+============
+
+Grant, revoke
+
+
+auto increment
+
+
+creating table using another table
+
+computed columns
+
+
+notes:
+Enter password: *************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create table students(student_no int primary key,
+    -> ^C
+mysql> create table students(stu_no int primary key,
+    -> sname varchar(30),
+    -> semail varchar(20)
+    -> );
+ERROR 1046 (3D000): No database selected
+mysql> use pfs6;
+Database changed
+mysql> create table students(sno int primary key,,
+    -> sname varchar(30),
+    -> semail varchar(20)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',
+sname varchar(30),
+semail varchar(20)
+)' at line 1
+mysql> create table students(sno int primary key,
+    -> sname varchar(30),
+    -> semail varchar(20));
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> insert into students values
+    -> (111,'mallik','malli@codegnan');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from students;
++-----+--------+----------------+
+| sno | sname  | semail         |
++-----+--------+----------------+
+| 111 | mallik | malli@codegnan |
++-----+--------+----------------+
+1 row in set (0.00 sec)
+
+mysql> create database DA6;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use DA6;
+Database changed
+mysql> create table students(sno int primary key,
+    ->     -> sname varchar(30),
+    ->     -> semail varchar(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> sname varchar(30),
+    -> semail varchar(20))' at line 2
+mysql> semail varchar(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'semail varchar(20))' at line 1
+mysql> ^C
+mysql> create table students(sno int primary key,
+    ->     -> sname varchar(30),
+    ->     -> sname varchar(30),^C
+mysql> create table students(sno int primary key,
+    -> sname varchar(30),
+    -> semail varchar(20));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into students values
+    -> (111,'mallik','malli@codegnan');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create user sai identified by 'Sai@2003';
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> create user balaji identified by 'balaji@2003';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> grant select,insert,update on students to sai;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant select,drop on students to balaji;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop database pfs6;
+Query OK, 7 rows affected (0.15 sec)
+
+mysql> select * from students;
++-----+--------+----------------+
+| sno | sname  | semail         |
++-----+--------+----------------+
+| 111 | mallik | malli@codegnan |
++-----+--------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from students;
++-----+--------+----------------+
+| sno | sname  | semail         |
++-----+--------+----------------+
+| 111 | mallik | malli@codegnan |
+| 222 | mahi   | mahi@codegnan  |
++-----+--------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke insert,update on students from sai;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table EMP(emp_id int primary key,ename varchar(35), esal decimal(10,2));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> drop table EMP;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table EMP(emp_id int auto_increment primary key,ename varchar(35), esal decimal(10,2));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into EMP values
+    -> (^C
+mysql> insert into EMP(ename,esal) values
+    -> ('sai','50000');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from EMP;
++--------+-------+----------+
+| emp_id | ename | esal     |
++--------+-------+----------+
+|      1 | sai   | 50000.00 |
++--------+-------+----------+
+1 row in set (0.01 sec)
+
+mysql> insert into EMP(ename,esal) values
+    -> ('shakila','25000');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from EMP;
++--------+---------+----------+
+| emp_id | ename   | esal     |
++--------+---------+----------+
+|      1 | sai     | 50000.00 |
+|      2 | shakila | 25000.00 |
++--------+---------+----------+
+2 rows in set (0.00 sec)
+
+mysql> delete from EMP where emp_id=1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delete from EMP where emp_id=2;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from EMP;
+Empty set (0.00 sec)
+
+mysql> insert into EMP(ename,esal) values('balaji','100000');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from EMP;
++--------+--------+-----------+
+| emp_id | ename  | esal      |
++--------+--------+-----------+
+|      3 | balaji | 100000.00 |
++--------+--------+-----------+
+1 row in set (0.00 sec)
+
+mysql> create table backup_emp as select * from employees;
+ERROR 1146 (42S02): Table 'da6.employees' doesn't exist
+mysql> create table backup_emp as select * from EMP;
+Query OK, 1 row affected (0.04 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> select * from backup_emp;
++--------+--------+-----------+
+| emp_id | ename  | esal      |
++--------+--------+-----------+
+|      3 | balaji | 100000.00 |
++--------+--------+-----------+
+1 row in set (0.00 sec)
+
+mysql> create table products(
+    -> product_id int auto_increment primary key,
+    -> pname varchar(30),
+    -> price decimal(10,2),
+    -> quantity int,
+    -> totalamount decimal(10,2) generated always as(price*quantity)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO products (pname, price, quantity)
+    -> VALUES ('Laptop', 50000, 2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from products;
++------------+--------+----------+----------+-------------+
+| product_id | pname  | price    | quantity | totalamount |
++------------+--------+----------+----------+-------------+
+|          1 | Laptop | 50000.00 |        2 |   100000.00 |
++------------+--------+----------+----------+-------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO products (pname, price, quantity)
+    -> VALUES ('Laptop', 45000, 5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from products;
++------------+--------+----------+----------+-------------+
+| product_id | pname  | price    | quantity | totalamount |
++------------+--------+----------+----------+-------------+
+|          1 | Laptop | 50000.00 |        2 |   100000.00 |
+|          2 | Laptop | 45000.00 |        5 |   225000.00 |
++------------+--------+----------+----------+-------------+
+2 rows in set (0.00 sec)
+
+mysql>
